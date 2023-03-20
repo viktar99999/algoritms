@@ -1,9 +1,9 @@
-import numpy as np
 import random
+import re
 import string
 import bs4 as bs
+import numpy as np
 import urllib.request
-import re
 raw_html = urllib.request.urlopen('https://en.wikipedia.org/wiki/Tennis')
 raw_html = raw_html.read()
 article_html = bs.BeautifulSoup(raw_html, 'lxml')
@@ -13,7 +13,7 @@ for para in article_paragraphs:
     article_text += para.text
 article_text = article_text.lower()
 ngrams = {}
-chars = 4
+chars = 2
 for i in range(len(article_text)-chars):
     seq = article_text[i:i+chars]
     print(seq)
@@ -30,9 +30,6 @@ for i in range(200):
     output += next_char
     curr_sequence = output[len(output)-chars:len(output)]
 print(output)
-
-
-
 processed_article = article_text.lower()
 processed_article = re.sub('[^a-zA-Z]', ' ', processed_article)
 processed_article = re.sub(r'\s+', ' ', processed_article)
